@@ -1,14 +1,14 @@
 [Desktop Entry]
 Type=Application
 Version=1.0
-Name=Bogenplan
+Name=Bogentag Calendar
 GenericName=Calendar
 Comment=Your calendars laid out on the Sun's arc
-Exec=bogenplan %U
-Icon=bogenplan
+Exec=bogentag-calendar %U
+Icon=bogentag-calendar
 Terminal=false
 Categories=Office;Calendar;
 MimeType=text/calendar;x-scheme-handler/webcal;x-scheme-handler/webcals;
 Keywords=calendar;sun;solar;bogenzeit;caldav;icloud;
 StartupNotify=true
-StartupWMClass=bogenplan
+StartupWMClass=bogentag-calendar

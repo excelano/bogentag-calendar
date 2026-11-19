@@ -1,7 +1,7 @@
 // Author: David M. Anderson
 // Built with AI assistance (Claude, Anthropic)
 
-use bogenplan_store::{Calendar, Occurrence, OccurrenceTime};
+use bogentag_calendar_store::{Calendar, Occurrence, OccurrenceTime};
 use chrono::Duration;
 use eframe::egui::{self, Grid, RichText, Ui};
 

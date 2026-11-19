@@ -1,15 +1,17 @@
-Package: bogenplan
+Package: bogentag-calendar
 Version: @VERSION@
 Architecture: @ARCH@
 Maintainer: David M. Anderson <david.anderson@excelano.com>
 Installed-Size: @SIZE@
 Section: utils
 Priority: optional
-Homepage: https://github.com/excelano/bogenplan-desktop
+Homepage: https://github.com/excelano/bogentag-calendar
+Replaces: bogenplan
+Conflicts: bogenplan
 Depends: libc6, libgcc-s1, libwayland-client0, libxkbcommon0, libxkbcommon-x11-0, libegl1, libvulkan1 | libgl1, libx11-6, libx11-xcb1, libxi6, libxcursor1, libxrandr2, ca-certificates, desktop-file-utils, hicolor-icon-theme
 Recommends: gnome-keyring
 Description: Your calendars laid out on the Sun's arc
- Bogenplan shows the calendars you keep on iCloud or another CalDAV server
+ Bogentag Calendar shows the calendars you keep on iCloud or another CalDAV server
  in Bogenzeit: each day runs from one solar midnight to the next, sunrise
  and sunset sit at fixed heights, and an event's place is read in spans
  before or after solar noon or solar midnight where you are. Civil times

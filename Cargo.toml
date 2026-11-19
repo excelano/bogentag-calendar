@@ -2,22 +2,22 @@
 members = ["store"]
 
 [package]
-name = "bogenplan"
+name = "bogentag-calendar"
 description = "A calendar laid out on the Sun's arc"
 version = "0.6.1"
 edition = "2024"
 authors = ["David M. Anderson"]
 license = "MIT"
-repository = "https://github.com/excelano/bogenplan-desktop"
+repository = "https://github.com/excelano/bogentag-calendar"
 publish = false
 rust-version = "1.95"
 
 [[bin]]
-name = "bogenplan"
+name = "bogentag-calendar"
 path = "src/main.rs"
 
 [dependencies]
-bogenplan-store = { path = "store" }
+bogentag-calendar-store = { path = "store" }
 bz = "0.7.0"
 chrono = "0.4"
 chrono-tz = "0.10"

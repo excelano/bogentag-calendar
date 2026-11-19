@@ -31,15 +31,15 @@ mod system;
 mod time;
 mod week;
 
-use bogenplan_store::Store;
+use bogentag_calendar_store::Store;
 use chrono::NaiveDate;
 use eframe::egui::{self, Color32, CornerRadius, Stroke, Visuals};
 
 use crate::app::{App, Source};
 use crate::instance::Opening;
 
-const APP_ID: &str = "bogenplan";
-const PRODUCT: &str = "Bogenplan";
+const APP_ID: &str = "bogentag-calendar";
+const PRODUCT: &str = "Bogentag Calendar";
 
 fn argument(flag: &str) -> Option<String> {
     let arguments: Vec<String> = std::env::args().collect();
@@ -87,6 +87,7 @@ fn visuals() -> Visuals {
 }
 
 fn main() -> eframe::Result {
+    settings::adopt_former_profile();
     let demo = std::env::args().any(|argument| argument == "--demo");
     let opening =
         argument("--date").and_then(|text| NaiveDate::parse_from_str(&text, "%Y-%m-%d").ok());

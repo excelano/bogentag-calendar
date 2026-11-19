@@ -3,7 +3,9 @@
 
 use std::sync::mpsc::TryRecvError;
 
-use bogenplan_store::{Calendar, CalendarId, Change, Occurrence, OccurrenceTime, Reply, Scope};
+use bogentag_calendar_store::{
+    Calendar, CalendarId, Change, Occurrence, OccurrenceTime, Reply, Scope,
+};
 use chrono::{DateTime, Duration, Local, NaiveDate, NaiveTime, TimeZone, Timelike, Utc};
 use eframe::egui::{self, Align, Layout, RichText, TextEdit, Ui};
 

@@ -15,7 +15,7 @@ usage() {
     cat <<'USAGE'
 usage: build-deb.sh [--target-dir DIR] [--outdir DIR]
 
-  --target-dir DIR  the Cargo target directory holding release/bogenplan
+  --target-dir DIR  the Cargo target directory holding release/bogentag-calendar
                     (default: ask cargo)
   --outdir DIR      where to write the .deb (default: ./dist)
 USAGE
@@ -34,7 +34,7 @@ if [ -z "$target_dir" ]; then
     target_dir=$(cd "$root" && cargo metadata --format-version 1 --no-deps |
         sed -n 's/.*"target_directory":"\([^"]*\)".*/\1/p')
 fi
-binary="${target_dir}/release/bogenplan"
+binary="${target_dir}/release/bogentag-calendar"
 [ -x "$binary" ] || {
     echo "build-deb.sh: no executable at $binary — run 'cargo build --release' first" >&2
     exit 1
@@ -66,7 +66,7 @@ if [ -n "$want" ] && [ "$machine" != "$want" ]; then
     exit 1
 fi
 
-name="bogenplan_${version}_${arch}"
+name="bogentag-calendar_${version}_${arch}"
 
 stage=$(mktemp -d)
 trap 'rm -rf "$stage"' EXIT
@@ -78,25 +78,25 @@ mkdir -p \
     "${stage}/usr/share/applications" \
     "${stage}/usr/share/icons/hicolor/scalable/apps" \
     "${stage}/usr/share/man/man1" \
-    "${stage}/usr/share/doc/bogenplan"
+    "${stage}/usr/share/doc/bogentag-calendar"
 
-install -m 0755 "$binary" "${stage}/usr/bin/bogenplan"
-install -m 0644 "${here}/../linux/bogenplan.desktop" \
-    "${stage}/usr/share/applications/bogenplan.desktop"
-install -m 0644 "${here}/../linux/bogenplan.svg" \
-    "${stage}/usr/share/icons/hicolor/scalable/apps/bogenplan.svg"
-install -m 0644 "${here}/copyright" "${stage}/usr/share/doc/bogenplan/copyright"
+install -m 0755 "$binary" "${stage}/usr/bin/bogentag-calendar"
+install -m 0644 "${here}/../linux/bogentag-calendar.desktop" \
+    "${stage}/usr/share/applications/bogentag-calendar.desktop"
+install -m 0644 "${here}/../linux/bogentag-calendar.svg" \
+    "${stage}/usr/share/icons/hicolor/scalable/apps/bogentag-calendar.svg"
+install -m 0644 "${here}/copyright" "${stage}/usr/share/doc/bogentag-calendar/copyright"
 
-gzip -9nc "${here}/changelog" > "${stage}/usr/share/doc/bogenplan/changelog.gz"
-chmod 0644 "${stage}/usr/share/doc/bogenplan/changelog.gz"
+gzip -9nc "${here}/changelog" > "${stage}/usr/share/doc/bogentag-calendar/changelog.gz"
+chmod 0644 "${stage}/usr/share/doc/bogentag-calendar/changelog.gz"
 
-sed "s/@VERSION@/${version}/" "${here}/bogenplan.1.in" \
-    | gzip -9nc > "${stage}/usr/share/man/man1/bogenplan.1.gz"
-chmod 0644 "${stage}/usr/share/man/man1/bogenplan.1.gz"
+sed "s/@VERSION@/${version}/" "${here}/bogentag-calendar.1.in" \
+    | gzip -9nc > "${stage}/usr/share/man/man1/bogentag-calendar.1.gz"
+chmod 0644 "${stage}/usr/share/man/man1/bogentag-calendar.1.gz"
 
 # Stripped here rather than by the build profile, so a developer's release
 # binary keeps its symbols and only the packaged copy loses them.
-strip --strip-unneeded "${stage}/usr/bin/bogenplan" 2>/dev/null || true
+strip --strip-unneeded "${stage}/usr/bin/bogentag-calendar" 2>/dev/null || true
 
 find "$stage" -type d -exec chmod 0755 {} +
 

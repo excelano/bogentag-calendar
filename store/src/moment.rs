@@ -11,7 +11,7 @@ pub(crate) fn ics(uid: &str, at: DateTime<Utc>, title: &str, now: DateTime<Utc>)
     [
         "BEGIN:VCALENDAR".to_string(),
         "VERSION:2.0".to_string(),
-        "PRODID:-//Excelano//Bogenplan//EN".to_string(),
+        "PRODID:-//Excelano//Bogentag Calendar//EN".to_string(),
         "CALSCALE:GREGORIAN".to_string(),
         "BEGIN:VEVENT".to_string(),
         format!("UID:{uid}"),

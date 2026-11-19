@@ -1,5 +1,5 @@
 [package]
-name = "bogenplan-store"
+name = "bogentag-calendar-store"
 version = "0.6.1"
 edition = "2024"
 publish = false

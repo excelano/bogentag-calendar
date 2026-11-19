@@ -5,7 +5,8 @@ use std::collections::HashMap;
 
 use crate::model::{hex, parse_hex};
 
-const SERVICE: &str = "bogenplan";
+const SERVICE: &str = "bogentag-calendar";
+const LABEL: &str = "Bogentag Calendar CalDAV";
 
 #[derive(Clone)]
 pub(crate) struct Credentials {
@@ -63,7 +64,7 @@ pub(crate) async fn save(credentials: &Credentials) -> Result<(), String> {
     keyring()
         .await?
         .create_item(
-            "Bogenplan CalDAV",
+            LABEL,
             &HashMap::from([
                 ("service", SERVICE),
                 ("server", credentials.server.as_str()),
@@ -88,7 +89,8 @@ pub(crate) async fn forget(server: &str, username: &str) -> Result<(), String> {
         .map_err(|error| format!("the password could not be removed: {error}"))
 }
 
-const FEED_SERVICE: &str = "bogenplan-feed";
+const FEED_SERVICE: &str = "bogentag-calendar-feed";
+const FEED_LABEL: &str = "Bogentag Calendar subscription";
 
 #[derive(Clone)]
 pub(crate) struct Feed {
@@ -141,12 +143,7 @@ pub(crate) async fn feeds() -> Result<Vec<Feed>, String> {
 pub(crate) async fn save_feed(feed: &Feed) -> Result<(), String> {
     keyring()
         .await?
-        .create_item(
-            "Bogenplan subscription",
-            &feed.attributes(),
-            feed.source.as_bytes(),
-            true,
-        )
+        .create_item(FEED_LABEL, &feed.attributes(), feed.source.as_bytes(), true)
         .await
         .map_err(|error| format!("the subscription could not be saved: {error}"))
 }
@@ -174,4 +171,34 @@ pub(crate) async fn forget_feed(id: &str) -> Result<(), String> {
         .delete(&HashMap::from([("service", FEED_SERVICE), ("feed", id)]))
         .await
         .map_err(|error| format!("the subscription could not be removed: {error}"))
+}
+
+/// Items filed under the former names, `bogenplan` and `bogenplan-feed`, are re-filed.
+pub(crate) async fn adopt_former_items() -> Result<(), String> {
+    let keyring = keyring().await?;
+    for (former, service, label) in [
+        ("bogenplan", SERVICE, LABEL),
+        ("bogenplan-feed", FEED_SERVICE, FEED_LABEL),
+    ] {
+        let items = keyring
+            .search_items(&HashMap::from([("service", former)]))
+            .await
+            .map_err(|error| format!("the keyring could not be searched: {error}"))?;
+        for item in items {
+            if item.is_locked().await.unwrap_or(false) {
+                item.unlock()
+                    .await
+                    .map_err(|_| "the keyring is locked".to_string())?;
+            }
+            let mut attributes = item.attributes().await.map_err(|error| error.to_string())?;
+            attributes.insert("service".to_string(), service.to_string());
+            item.set_attributes(&attributes)
+                .await
+                .map_err(|error| error.to_string())?;
+            item.set_label(label)
+                .await
+                .map_err(|error| error.to_string())?;
+        }
+    }
+    Ok(())
 }

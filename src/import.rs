@@ -3,7 +3,7 @@
 
 use std::path::Path;
 
-use bogenplan_store::{Calendar, CalendarId, Import, Imported, OccurrenceTime, Reply};
+use bogentag_calendar_store::{Calendar, CalendarId, Import, Imported, OccurrenceTime, Reply};
 use chrono::{Duration, Local};
 use eframe::egui::{self, Align, Layout, RichText, ScrollArea, Ui};
 
@@ -139,7 +139,7 @@ impl Importing {
                 Some("The organizer cancelled this event, and it is not in your calendars.")
             }
             (false, _) if import.invitation => {
-                Some("Saved as your own copy. Bogenplan does not reply to the organizer.")
+                Some("Saved as your own copy. Bogentag Calendar does not reply to the organizer.")
             }
             (false, _) => None,
         };

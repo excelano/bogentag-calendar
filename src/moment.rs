@@ -1,7 +1,7 @@
 // Author: David M. Anderson
 // Built with AI assistance (Claude, Anthropic)
 
-use bogenplan_store::{Calendar, Reply};
+use bogentag_calendar_store::{Calendar, Reply};
 use chrono::{DateTime, Local, NaiveTime, TimeZone, Timelike, Utc};
 use eframe::egui::{
     self, Align, CornerRadius, Layout, RichText, Sense, Stroke, TextEdit, Ui, vec2,

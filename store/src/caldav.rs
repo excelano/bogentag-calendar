@@ -436,13 +436,13 @@ mod tests {
     }
 
     #[test]
-    #[ignore = "needs BOGENPLAN_TEST_SERVER, BOGENPLAN_TEST_USERNAME and BOGENPLAN_TEST_PASSWORD"]
+    #[ignore = "needs BOGENTAG_CALENDAR_TEST_SERVER, BOGENTAG_CALENDAR_TEST_USERNAME and BOGENTAG_CALENDAR_TEST_PASSWORD"]
     fn a_server_takes_a_moment_through_its_whole_life() {
         let variable = |name: &str| std::env::var(name).unwrap_or_else(|_| panic!("{name}"));
         let credentials = Credentials {
-            server: variable("BOGENPLAN_TEST_SERVER"),
-            username: variable("BOGENPLAN_TEST_USERNAME"),
-            password: variable("BOGENPLAN_TEST_PASSWORD"),
+            server: variable("BOGENTAG_CALENDAR_TEST_SERVER"),
+            username: variable("BOGENTAG_CALENDAR_TEST_USERNAME"),
+            password: variable("BOGENTAG_CALENDAR_TEST_PASSWORD"),
         };
         tokio::runtime::Builder::new_current_thread()
             .enable_all()
@@ -464,7 +464,7 @@ mod tests {
 
                 let uid = uuid::Uuid::new_v4().to_string().to_uppercase();
                 let now = chrono::Utc::now();
-                let text = crate::moment::ics(&uid, now, "Bogenplan test", now);
+                let text = crate::moment::ics(&uid, now, "Bogentag Calendar test", now);
                 let (resource, etag) = connection.put(&href, &uid, text.clone()).await.unwrap();
                 let data = connection
                     .sync(calendar.clone(), href.clone(), Some(data))
@@ -474,7 +474,8 @@ mod tests {
                 assert_eq!(synced.events[0].uid, uid);
                 let etag = etag.unwrap_or_else(|| synced.etag.clone());
 
-                let renamed = text.replace("Bogenplan test", "Bogenplan test renamed");
+                let renamed =
+                    text.replace("Bogentag Calendar test", "Bogentag Calendar test renamed");
                 let newer = connection
                     .update(&resource, renamed.clone(), &etag)
                     .await

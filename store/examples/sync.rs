@@ -4,7 +4,7 @@
 use std::sync::mpsc;
 use std::time::Duration;
 
-use bogenplan_store::{CalendarSource, Status, Store};
+use bogentag_calendar_store::{CalendarSource, Status, Store};
 use chrono::Utc;
 
 fn main() {

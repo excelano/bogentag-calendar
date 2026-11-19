@@ -43,7 +43,7 @@ impl Feeds {
             let request = Request::get(&uri)
                 .header(
                     header::USER_AGENT,
-                    concat!("Bogenplan/", env!("CARGO_PKG_VERSION")),
+                    concat!("BogentagCalendar/", env!("CARGO_PKG_VERSION")),
                 )
                 .header(header::ACCEPT, "text/calendar, */*;q=0.5")
                 .body(String::new())

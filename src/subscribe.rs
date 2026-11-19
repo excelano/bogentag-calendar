@@ -1,7 +1,7 @@
 // Author: David M. Anderson
 // Built with AI assistance (Claude, Anthropic)
 
-use bogenplan_store::Store;
+use bogentag_calendar_store::Store;
 use eframe::egui::{self, Align, Layout, RichText, TextEdit, Ui};
 
 use crate::editor::Pending;

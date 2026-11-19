@@ -365,6 +365,7 @@ impl Worker {
             .await
             .unwrap_or_default();
         self.publish();
+        let _ = credentials::adopt_former_items().await;
         self.sync(Feeding::WhenDue).await;
         loop {
             tokio::select! {

@@ -3,7 +3,7 @@
 
 use std::ops::RangeInclusive;
 
-use bogenplan_store::{CalendarSource, Occurrence, OccurrenceTime};
+use bogentag_calendar_store::{CalendarSource, Occurrence, OccurrenceTime};
 use chrono::{DateTime, NaiveDate, Utc};
 use eframe::egui::text::{LayoutJob, TextWrapping};
 use eframe::egui::{
@@ -19,7 +19,7 @@ use crate::layout;
 use crate::palette::{self, with_opacity};
 use crate::place::Place;
 
-pub struct Colors(pub std::collections::HashMap<bogenplan_store::CalendarId, [u8; 3]>);
+pub struct Colors(pub std::collections::HashMap<bogentag_calendar_store::CalendarId, [u8; 3]>);
 
 impl Colors {
     pub fn of(&self, occurrence: &Occurrence) -> Color32 {

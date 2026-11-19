@@ -1,7 +1,7 @@
 // Author: David M. Anderson
 // Built with AI assistance (Claude, Anthropic)
 
-use bogenplan_store::Occurrence;
+use bogentag_calendar_store::Occurrence;
 use eframe::egui::{CornerRadius, FontId, Rect, Sense, Ui, pos2, vec2};
 
 use crate::day::Colors;

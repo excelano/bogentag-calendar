@@ -10,8 +10,8 @@ use eframe::egui::{self, ViewportCommand};
 use zbus::fdo::{RequestNameFlags, RequestNameReply};
 use zbus::{Connection, connection, interface};
 
-const NAME: &str = "com.excelano.Bogenplan";
-const PATH: &str = "/com/excelano/Bogenplan";
+const NAME: &str = "com.excelano.BogentagCalendar";
+const PATH: &str = "/com/excelano/BogentagCalendar";
 
 pub enum Opening {
     File(PathBuf),
@@ -57,7 +57,7 @@ struct Opener {
     window: Arc<OnceLock<egui::Context>>,
 }
 
-#[interface(name = "com.excelano.Bogenplan")]
+#[interface(name = "com.excelano.BogentagCalendar")]
 impl Opener {
     fn open(&self, arguments: Vec<String>) {
         for argument in arguments {

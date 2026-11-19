@@ -1,9 +1,9 @@
 # CLAUDE.md
 
-Bogenplan for the Linux desktop: the calendars in a CalDAV account (iCloud
+Bogentag Calendar for the Linux desktop: the calendars in a CalDAV account (iCloud
 first) laid out in Bogenzeit, an egui application. It is the desktop sibling of
-excelano/bogenplan, the iPhone and iPad app, and follows that repository's
-`docs/concept.md`; the Bogenzeit spec in excelano/bogenzeit is normative. The
+the calendar in excelano/bogentag-ios, the iPhone and Apple Watch app, and
+follows that repository's `docs/concept.md`; the Bogenzeit spec in excelano/bogenzeit is normative. The
 only events it makes itself are moments, zero-length events with an alert at
 their start; an opened `.ics` file is added as the file's own text, less
 `METHOD`, `ORGANIZER` and `ATTENDEE`, one resource per UID, replacing a copy
@@ -12,14 +12,14 @@ rewriting the fields it changes in the event's own iCalendar text
 (`store/src/edit.rs`), never regenerating it, and writes with If-Match on the
 cached etag. Subscribed calendars are read-only: those the account subscribes to
 (`cs:subscribed` in the calendar home, fetched from their `cs:source`) and those
-subscribed in Bogenplan by address, which need no account and are kept in the
-keyring under `service=bogenplan-feed` with their color. `store/src/feed.rs`
+subscribed in Bogentag Calendar by address, which need no account and are kept in the
+keyring under `service=bogentag-calendar-feed` with their color. `store/src/feed.rs`
 fetches each without credentials and over HTTPS only, at most hourly or on Sync
 Now, and the store refuses writes to them.
 
 ## Layout
 
-The store crate, `store/` (`bogenplan-store`) is CalDAV, iCalendar and
+The store crate, `store/` (`bogentag-calendar-store`) is CalDAV, iCalendar and
 recurrence behind `CalendarSource`: `libdav`, `icalendar`, `rrule` and the
 keyring types stay inside it and the app sees calendars and occurrences only.
 Its worker thread runs tokio, syncs on a timer, and publishes immutable
@@ -29,8 +29,12 @@ axis, `display.rs` the display forms, `accounts.rs` the sign-in form and its
 service presets, `glyph.rs` the drawn glyphs, `import.rs`
 the sheet for an opened `.ics` file, `subscribe.rs` the subscription field and
 the sheet for an opened `webcal://` link, `instance.rs` the session-bus name
-`com.excelano.Bogenplan` through which a second launch hands its files and links
+`com.excelano.BogentagCalendar` through which a second launch hands its files and links
 to the open window, `demo.rs` the sample week behind `--demo`.
+
+An install under the former name carries over: `settings.rs` takes over
+`~/.config/bogenplan` and `~/.cache/bogenplan`, and `store/src/credentials.rs`
+re-files keyring items from `service=bogenplan` and `bogenplan-feed`.
 
 The engine is the `bz` crate from excelano/bogenzeit, from crates.io.
 
@@ -38,9 +42,9 @@ The engine is the `bz` crate from excelano/bogenzeit, from crates.io.
 
     cargo test --workspace
     cargo run -- --demo --date 2026-11-04
-    cargo run --example sync -p bogenplan-store -- <cache dir>
-    BOGENPLAN_TEST_SERVER=http://127.0.0.1:5232 BOGENPLAN_TEST_USERNAME=<user> \
-      BOGENPLAN_TEST_PASSWORD=<password> cargo test -p bogenplan-store -- --ignored
+    cargo run --example sync -p bogentag-calendar-store -- <cache dir>
+    BOGENTAG_CALENDAR_TEST_SERVER=http://127.0.0.1:5232 BOGENTAG_CALENDAR_TEST_USERNAME=<user> \
+      BOGENTAG_CALENDAR_TEST_PASSWORD=<password> cargo test -p bogentag-calendar-store -- --ignored
     ./packaging/debian/build-deb.sh
     ./packaging/linux/check-libraries.sh
 
@@ -49,9 +53,9 @@ edit and deletion on the first calendar of a real server, outside the keyring. A
 local Radicale serves; on iCloud the moment's alert rings on every device.
 
 The `screenshot` feature lets a build photograph its own window:
-`BOGENPLAN_SCREENSHOT=<png>` saves one after `BOGENPLAN_SCREENSHOT_DELAY`
-seconds and closes, `BOGENPLAN_SCREENSHOT_SIZE=<w>x<h>` sizes the window, and
-`BOGENPLAN_SCREENSHOT_OPEN` opens `settings`, `moment` or `event:<title>` first.
+`BOGENTAG_CALENDAR_SCREENSHOT=<png>` saves one after `BOGENTAG_CALENDAR_SCREENSHOT_DELAY`
+seconds and closes, `BOGENTAG_CALENDAR_SCREENSHOT_SIZE=<w>x<h>` sizes the window, and
+`BOGENTAG_CALENDAR_SCREENSHOT_OPEN` opens `settings`, `moment` or `event:<title>` first.
 Point `XDG_CONFIG_HOME` and `XDG_CACHE_HOME` at a scratch directory to run
 against a live account without touching the real profile.
 

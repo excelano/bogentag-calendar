@@ -5,7 +5,7 @@ use std::collections::{HashMap, VecDeque};
 use std::sync::mpsc::Receiver;
 use std::time::Duration;
 
-use bogenplan_store::{
+use bogentag_calendar_store::{
     Calendar, CalendarSource, Occurrence, SUBSCRIPTION_COLORS, SUBSCRIPTIONS, Status, Store,
 };
 use chrono::{DateTime, NaiveDate, Utc, Weekday};
@@ -990,7 +990,7 @@ impl eframe::App for App {
             self.gate(
                 ui,
                 "Your calendars",
-                "Bogenplan shows your calendars laid out on the Sun's arc, and adds the moments you set to them. Sign in to iCloud or another CalDAV server, or subscribe to a published calendar by its address.",
+                "Bogentag Calendar shows your calendars laid out on the Sun's arc, and adds the moments you set to them. Sign in to iCloud or another CalDAV server, or subscribe to a published calendar by its address.",
                 |app, ui| {
                     if let Source::Live(store) = &app.source {
                         app.sign_in.show(ui, store);

@@ -45,7 +45,7 @@ pub fn config_dir() -> PathBuf {
         .map(PathBuf::from)
         .or_else(|| std::env::var_os("HOME").map(|home| PathBuf::from(home).join(".config")))
         .unwrap_or_default()
-        .join("bogenplan")
+        .join("bogentag-calendar")
 }
 
 pub fn cache_dir() -> PathBuf {
@@ -54,7 +54,16 @@ pub fn cache_dir() -> PathBuf {
         .map(PathBuf::from)
         .or_else(|| std::env::var_os("HOME").map(|home| PathBuf::from(home).join(".cache")))
         .unwrap_or_default()
-        .join("bogenplan")
+        .join("bogentag-calendar")
+}
+
+/// Directories written under the former name, `bogenplan`, are taken over.
+pub fn adopt_former_profile() {
+    for dir in [config_dir(), cache_dir()] {
+        if !dir.exists() {
+            let _ = fs::rename(dir.with_file_name("bogenplan"), dir);
+        }
+    }
 }
 
 impl Settings {

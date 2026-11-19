@@ -10,13 +10,13 @@ Please do not open public issues for security problems.
 
 The latest release receives security fixes. Older versions are not supported. A fix ships in a new release; update the way you installed.
 
-## What Bogenplan can access
+## What Bogentag Calendar can access
 
-Bogenplan reads the calendars in a CalDAV account, adds zero-length events to
+Bogentag Calendar reads the calendars in a CalDAV account, adds zero-length events to
 one of them, and edits or deletes events the user chooses. It connects over
 HTTPS, with the system's trusted certificates, to the calendar server the user
 signs in to and to the publisher of each subscribed calendar, whether the
-account subscribes to it or it was added in Bogenplan by its address, and to
+account subscribes to it or it was added in Bogentag Calendar by its address, and to
 nothing else. Plain HTTP to the calendar server is refused except to a server
 on this computer (localhost or a loopback address), so the password never
 crosses a network unencrypted. A subscribed feed is fetched without the
@@ -33,12 +33,12 @@ Calendar data arrives from the server and from subscribed feeds as iCalendar tex
 hostile event is the input this application has to withstand, and a crash or
 hang on one is worth reporting.
 
-## What Bogenplan stores
+## What Bogentag Calendar stores
 
-The password, and the address of each calendar subscribed in Bogenplan, in the
-desktop keyring through the Secret Service, never on disk by Bogenplan itself. The events last fetched, in
-`~/.cache/bogenplan/calendars.json`, created readable by its owner only. The
-settings and the place, in `~/.config/bogenplan/settings.json`.
+The password, and the address of each calendar subscribed in Bogentag Calendar, in the
+desktop keyring through the Secret Service, never on disk by Bogentag Calendar itself. The events last fetched, in
+`~/.cache/bogentag-calendar/calendars.json`, created readable by its owner only. The
+settings and the place, in `~/.config/bogentag-calendar/settings.json`.
 
 ## Verifying releases
 

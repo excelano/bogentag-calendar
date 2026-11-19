@@ -1,7 +1,7 @@
 // Author: David M. Anderson
 // Built with AI assistance (Claude, Anthropic)
 
-use bogenplan_store::{
+use bogentag_calendar_store::{
     Calendar, CalendarId, CalendarSource, Change, Import, Occurrence, OccurrenceTime, Reply, Scope,
 };
 use chrono::{DateTime, Datelike, Duration, NaiveDate, TimeZone, Utc};
