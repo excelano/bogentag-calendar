@@ -1,3 +1,9 @@
+bogentag-calendar (0.7.0) unstable; urgency=medium
+
+  * Renamed to Bogentag Calendar: the package and command are now bogentag-calendar, and settings, accounts and subscriptions carry over from bogenplan
+
+ -- David M. Anderson <david.anderson@excelano.com>  Thu, 19 Nov 2026 10:08:50 -0600
+
 bogenplan (0.6.1) unstable; urgency=medium
 
   * Move an event to another calendar on iCloud, which refused the copy while the original still held its UID
