@@ -150,6 +150,7 @@ mod tests {
     use crate::civil::Clock;
     use crate::display::Precision;
     use crate::place::Place;
+    use chrono::Weekday;
 
     const HOUSTON: Place = Place {
         latitude: 29.76,
@@ -163,6 +164,7 @@ mod tests {
             precision: Precision::Medium,
             shows_civil_time: true,
             clock: Clock::TwentyFourHour,
+            first_weekday: Weekday::Sun,
         }
     }
 

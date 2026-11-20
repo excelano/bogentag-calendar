@@ -1,7 +1,7 @@
 // Author: David M. Anderson
 // Built with AI assistance (Claude, Anthropic)
 
-use chrono::{DateTime, Utc};
+use chrono::{DateTime, Utc, Weekday};
 use serde::{Deserialize, Serialize};
 
 use crate::civil::Clock;
@@ -153,6 +153,7 @@ pub struct Readout {
     pub precision: Precision,
     pub shows_civil_time: bool,
     pub clock: Clock,
+    pub first_weekday: Weekday,
 }
 
 impl Readout {

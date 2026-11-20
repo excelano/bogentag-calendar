@@ -6,7 +6,7 @@ use std::sync::mpsc::TryRecvError;
 use bogentag_calendar_store::{
     Calendar, CalendarId, Change, Occurrence, OccurrenceTime, Reply, Scope,
 };
-use chrono::{DateTime, Duration, Local, NaiveDate, NaiveTime, TimeZone, Timelike, Utc};
+use chrono::{DateTime, Duration, Local, NaiveDate, NaiveTime, TimeZone, Timelike, Utc, Weekday};
 use eframe::egui::{self, Align, Layout, RichText, TextEdit, Ui};
 
 use crate::axis::DayAxis;
@@ -79,6 +79,7 @@ impl Pending {
     }
 }
 
+const FORMAT: &str = "%a %-d %b %Y";
 const FAILURE: egui::Color32 = egui::Color32::from_rgb(0xFF, 0x8A, 0x80);
 
 pub struct Editor {
@@ -198,7 +199,7 @@ impl Editor {
                         if bogenzeit {
                             bogenzeit_field(ui, id, at, readout);
                         } else {
-                            civil_field(ui, id, at, clock);
+                            civil_field(ui, id, at, clock, readout.first_weekday);
                         }
                         ui.end_row();
                     }
@@ -335,7 +336,7 @@ fn bogenzeit_field(ui: &mut Ui, id: &str, at: &mut DateTime<Utc>, readout: &Read
             let axis = DayAxis::containing(*at, readout.place);
             let shown = naive(axis.solar.date);
             let mut date = shown;
-            fields::date(ui, id, &mut date);
+            fields::date(ui, id, &mut date, FORMAT, readout.first_weekday);
             if date != shown {
                 let moved = DayAxis::new(date_of(day_of(date)), readout.place);
                 *at = moved.instant_at(axis.position(*at));
@@ -354,13 +355,19 @@ fn bogenzeit_field(ui: &mut Ui, id: &str, at: &mut DateTime<Utc>, readout: &Read
     });
 }
 
-fn civil_field(ui: &mut Ui, id: &str, at: &mut DateTime<Utc>, clock: Option<Clock>) {
+fn civil_field(
+    ui: &mut Ui,
+    id: &str,
+    at: &mut DateTime<Utc>,
+    clock: Option<Clock>,
+    first: Weekday,
+) {
     let local = at.with_timezone(&Local);
     let (shown, mut hour, mut minute) = (local.date_naive(), local.hour(), local.minute());
     let mut date = shown;
     let mut changed = false;
     ui.horizontal(|ui| {
-        fields::date(ui, id, &mut date);
+        fields::date(ui, id, &mut date, FORMAT, first);
         if let Some(clock) = clock {
             changed = fields::time(ui, clock, &mut hour, &mut minute);
         }

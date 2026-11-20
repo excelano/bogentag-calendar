@@ -22,6 +22,7 @@ use crate::demo::{self, Demo};
 use crate::detail;
 use crate::display::{Precision, Readout, Scale};
 use crate::editor::{self, Deletion, Editor};
+use crate::fields;
 use crate::glyph::Label;
 use crate::import::{self, Importing};
 use crate::instance::Opening;
@@ -216,6 +217,7 @@ impl App {
             precision: self.settings.precision,
             shows_civil_time: self.settings.shows_civil_time,
             clock: self.clock,
+            first_weekday: self.first_weekday,
         }
     }
 
@@ -337,25 +339,17 @@ impl App {
             if ui.button("›").on_hover_text("Later").clicked() {
                 self.go(self.selection + step);
             }
-            let shown = date_of(self.selection);
-            let mut picked =
-                jiff::civil::date(shown.year as i16, shown.month as i8, shown.day as i8);
-            let before = picked;
-            ui.add(
-                egui_extras::DatePickerButton::new(&mut picked)
-                    .id_salt("go to date")
-                    .format("%-d %b %Y")
-                    .calendar_week(false)
-                    .show_icon(false),
+            let shown = naive(date_of(self.selection));
+            let mut picked = shown;
+            fields::date(
+                ui,
+                "go to date",
+                &mut picked,
+                "%-d %b %Y",
+                self.first_weekday,
             );
-            if picked != before
-                && let Some(date) = NaiveDate::from_ymd_opt(
-                    i32::from(picked.year()),
-                    picked.month() as u32,
-                    picked.day() as u32,
-                )
-            {
-                self.go(day_of(date));
+            if picked != shown {
+                self.go(day_of(picked));
             }
             ui.label(
                 RichText::new(self.title(start, count))
