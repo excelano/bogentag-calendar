@@ -1,3 +1,9 @@
+bogentag-calendar (0.7.1) unstable; urgency=medium
+
+  * The date picker's week starts on the same day as the calendar's, Sunday or Monday by the locale
+
+ -- David M. Anderson <david.anderson@excelano.com>  Fri, 20 Nov 2026 16:18:43 -0600
+
 bogentag-calendar (0.7.0) unstable; urgency=medium
 
   * Renamed to Bogentag Calendar: the package and command are now bogentag-calendar, and settings, accounts and subscriptions carry over from bogenplan
