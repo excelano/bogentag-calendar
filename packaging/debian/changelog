@@ -1,3 +1,9 @@
+bogentag-calendar (0.7.2) unstable; urgency=medium
+
+  * A new icon, the Sun with four long rays to the corners and four short ones on the axes
+
+ -- David M. Anderson <david.anderson@excelano.com>  Wed, 25 Nov 2026 18:30:27 -0600
+
 bogentag-calendar (0.7.1) unstable; urgency=medium
 
   * The date picker's week starts on the same day as the calendar's, Sunday or Monday by the locale
