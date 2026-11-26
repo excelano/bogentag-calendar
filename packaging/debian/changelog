@@ -1,3 +1,9 @@
+bogentag-calendar (0.7.3) unstable; urgency=medium
+
+  * The icon's four short rays are a little longer and wider
+
+ -- David M. Anderson <david.anderson@excelano.com>  Thu, 26 Nov 2026 17:49:05 -0600
+
 bogentag-calendar (0.7.2) unstable; urgency=medium
 
   * A new icon, the Sun with four long rays to the corners and four short ones on the axes
