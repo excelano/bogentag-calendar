@@ -1,3 +1,9 @@
+bogentag-calendar (0.7.4) unstable; urgency=medium
+
+  * Correct sunrise and sunset by up to 90 s near the date line
+
+ -- David M. Anderson <david.anderson@excelano.com>  Fri, 27 Nov 2026 17:44:23 -0600
+
 bogentag-calendar (0.7.3) unstable; urgency=medium
 
   * The icon's four short rays are a little longer and wider
