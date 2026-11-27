@@ -18,7 +18,7 @@ path = "src/main.rs"
 
 [dependencies]
 bogentag-calendar-store = { path = "store" }
-bz = "0.7.0"
+bz = "0.7.2"
 chrono = "0.4"
 chrono-tz = "0.10"
 eframe = "0.36"
